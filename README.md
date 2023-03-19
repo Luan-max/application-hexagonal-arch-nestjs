@@ -2,6 +2,8 @@
 
 Application in NestJS, using a Hexagonal Architecture.
 
+- [Archictecure in whimsical](https://whimsical.com/arquitetura-hexagonal-nestjs-Ca7VDnWYUiyBxPHQV8VaoM)
+
 # What is Hexagonal Architecture? / Port adapter
 
 - [Hexagonal architecture](https://reflectoring.io/spring-hexagonal/)
