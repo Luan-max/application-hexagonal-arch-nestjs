@@ -5,7 +5,7 @@ import { List } from '../entities/list.entity';
 import { ListGatewayInterface } from './list-gateway-interface';
 
 @Injectable()
-export class ListGatewayTypeORMInterface implements ListGatewayInterface {
+export class ListGatewayTypeORM implements ListGatewayInterface {
   constructor(
     @InjectRepository(List) private listRepository: Repository<List>,
   ) {}
