@@ -1,30 +1,42 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Description
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Application in NestJS, using a Hexagonal Architecture.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# What is Hexagonal Architecture? / Port adapter
 
-## Description
+- [Hexagonal architecture](https://reflectoring.io/spring-hexagonal/)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+![Hexagonal](https://camo.githubusercontent.com/e0ed1dc9373bdcea57bb357cf01c292c6c4ef5dd71be1d92d591a754e2691fac/68747470733a2f2f6465762d746f2d75706c6f6164732e73332e616d617a6f6e6177732e636f6d2f75706c6f6164732f61727469636c65732f61316c75703065776a34396474753238713464352e706e67)
+
+# Explanation and Example of Port-Adapter
+
+![Example](https://camo.githubusercontent.com/d10be249e4db1ec177c69645d5b082a134aa18c87b07d85c52b82a384696e53f/68747470733a2f2f6465762d746f2d75706c6f6164732e73332e616d617a6f6e6177732e636f6d2f75706c6f6164732f61727469636c65732f6b733868633936676f33377136717463696971752e706e67)
+
+
+# Ports
+## Inbound/Input/Driving Ports: 
+  An input port (driving port) lets the application core to expose the functionality to the outside of the world.
+
+## Outbound/Output Ports / Driven Ports: 
+  A type of interface that is used by the application core to reach things outside of itself
+
+  - like getting some data from a database
+  - consume api from other service
+
+# Adapters
+
+## Driving / Primary / Input Adapter
+  An adapter to use the implementation of the driving/input port. It could be a RESTful API controller, a MVC web controller, or a console app.
+
+ - TicketController use TicketService from domain
+
+## Driven / Secondary / Output Adapter
+  An adapter to implement the driven/outbound port, It could be used to implement a database, a queue, a messaging system, etc.
+
+ - TicketInMemory implement the outbound port
+  It would be injected into the TicketService which is the implementation of the inbound port and the core business logic.
+The injection itself is handled by nestjs in ticket.module.ts
+    
 
 ## Installation
 
@@ -56,18 +68,10 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+
 ```
 
-## Support
+## References
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+[NestJS Clean Code Using Hexagonal Architecture ](https://towardsdev.com/nest-js-clean-code-using-hexagonal-architecture-3442a37a6e8e)
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
