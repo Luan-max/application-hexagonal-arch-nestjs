@@ -1,18 +1,27 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { ListsService } from './lists.service';
+import { ListGatewayInMemory } from './gateways/list-gateway-in-memory';
 
 describe('ListsService', () => {
   let service: ListsService;
+  let listPersistenceGateway: ListGatewayInMemory;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ListsService],
-    }).compile();
-
-    service = module.get<ListsService>(ListsService);
+  beforeEach(() => {
+    listPersistenceGateway = new ListGatewayInMemory();
+    service = new ListsService(listPersistenceGateway);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('when create a list', async () => {
+    const list = await service.create({ name: 'my list' });
+    expect(listPersistenceGateway.items).toEqual([list]);
+  });
+
+  it('when find all lists', async () => {
+    const list = await service.findAll();
+    expect(listPersistenceGateway.items).toEqual(list);
+  });
+
+  it('when find one a list', async () => {
+    await service.findOne(1);
+    expect(listPersistenceGateway.items).toEqual([]);
   });
 });
